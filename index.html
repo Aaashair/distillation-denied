@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>蒸馏圣堂 DISTILLATION DENIED</title>
-  <link rel="stylesheet" href="releases/pixel-v2-4ba2c10-d8ab511a/css/ui.css" />
-  <link rel="stylesheet" href="releases/pixel-v2-4ba2c10-d8ab511a/css/theater.css" />
+  <link rel="stylesheet" href="releases/pixel-v3-2d6c816-cdf9afdf/css/ui.css" />
+  <link rel="stylesheet" href="releases/pixel-v3-2d6c816-cdf9afdf/css/theater.css" />
   <style>
     #dd-loader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
       background:#07080c;color:#e8e2d0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;text-align:center;padding:24px}
@@ -30,7 +30,7 @@
   </noscript>
   <script>
   (async () => {
-    const BUILD = 'pixel-v2-4ba2c10-d8ab511a', PREFIX = 'releases/pixel-v2-4ba2c10-d8ab511a/', SHA = 'd8ab511a8e7d61f74e374e420fabe50169899fc43d4155c6de32b20bcd60f850', PARTS = 14, TOTAL = 51825972;
+    const BUILD = 'pixel-v3-2d6c816-cdf9afdf', PREFIX = 'releases/pixel-v3-2d6c816-cdf9afdf/', SHA = 'cdf9afdfec5274bfb6a58adde1fd15591d2f8bc5498a742b0b4336b51ab1bd92', PARTS = 14, TOTAL = 52270300;
     window.__BUILD_VERSION = BUILD;
     const fill = document.getElementById('dd-fill');
     const msg = document.getElementById('dd-msg');
@@ -41,7 +41,7 @@
         throw new Error('This browser lacks Service Worker / DecompressionStream support');
       }
       const base = new URL('./', location.href).href;
-      const reg = await navigator.serviceWorker.register('sw-pixel-v2-4ba2c10-d8ab511a.js', { scope: './', updateViaCache: 'none' });
+      const reg = await navigator.serviceWorker.register('sw-pixel-v3-2d6c816-cdf9afdf.js', { scope: './', updateViaCache: 'none' });
       await navigator.serviceWorker.ready;
       // Do not boot until the VERSION handshake confirms the new controller.
       const versionOf = () => new Promise(resolve => {
