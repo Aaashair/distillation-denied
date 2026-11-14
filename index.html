@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DISTILLATION DENIED</title>
-  <link rel="stylesheet" href="releases/pixel-v4-cc1bf80-c0114dc7/css/ui.css" />
-  <link rel="stylesheet" href="releases/pixel-v4-cc1bf80-c0114dc7/css/theater.css" />
+  <link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/ui.css" />
+  <link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/theater.css" />
   <style>
     #dd-loader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
       background:#07080c;color:#e8e2d0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;text-align:center;padding:24px}
@@ -15,7 +15,7 @@
     #dd-fill{height:100%;width:0;background:linear-gradient(90deg,#c9a24a,#f2d68a);transition:width .2s}
     #dd-msg{margin-top:12px;font-size:13px;opacity:.75;min-height:1.4em}
   </style>
-<link rel="stylesheet" href="releases/pixel-v4-cc1bf80-c0114dc7/css/claude.css" />
+<link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/claude.css" />
 </head>
 <body>
   <canvas id="view"></canvas>
@@ -31,7 +31,7 @@
   </noscript>
   <script>
   (async () => {
-    const BUILD = 'pixel-v4-cc1bf80-c0114dc7', PREFIX = 'releases/pixel-v4-cc1bf80-c0114dc7/', SHA = 'c0114dc7f5d25dbdf445f530e616b5d963b86f782bee95dca037db4e50a0ad94', PARTS = 16, TOTAL = 58685772;
+    const BUILD = 'pixel-v5-1-cb050f5-ea7cc902', PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
     window.__BUILD_VERSION = BUILD;
     const fill = document.getElementById('dd-fill');
     const msg = document.getElementById('dd-msg');
@@ -42,7 +42,7 @@
         throw new Error('This browser lacks Service Worker / DecompressionStream support');
       }
       const base = new URL('./', location.href).href;
-      const reg = await navigator.serviceWorker.register('sw-pixel-v4-cc1bf80-c0114dc7.js', { scope: './', updateViaCache: 'none' });
+      const reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902.js', { scope: './', updateViaCache: 'none' });
       await navigator.serviceWorker.ready;
       // Do not boot until the VERSION handshake confirms the new controller.
       const versionOf = () => new Promise(resolve => {
