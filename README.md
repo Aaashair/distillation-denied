@@ -29,9 +29,9 @@ Pick a chaser model and fight alongside the other two as AI allies against Claud
 Best on desktop Chrome/Edge with sound on. First load is ~44 MB (music + voice).
 
 ## 仓库结构 / Repo layout
-- `source/` — 游戏源码 / game source (ES modules; `node source/tools/build.mjs` bundles with esbuild; Three.js r170 is vendored in the build, not committed here).
-- `payload/` — 构建产物（`dist/` 的 tar.gz，base64 分片）/ the built `dist/` as a base64-split tar.gz (uploaded via the GitHub API, which only accepts text).
-- `.github/workflows/pages.yml` — 解码分片、校验 SHA-256 并发布到 `gh-pages` 分支 / decodes the parts, verifies SHA-256, and publishes to the `gh-pages` branch that GitHub Pages serves.
+- `main` 分支 / branch: `source/` 游戏源码 / game source (ES modules; `node source/tools/build.mjs` bundles with esbuild; Three.js r170 is vendored in the build), `payload/` = the built `dist/` as a base64-split tar.gz.
+- `gh-pages` 分支 / branch（GitHub Pages 发布源 / what Pages serves）: `index.html` loader + `sw.js` + `game.js` + `css/` + `payload/`.
+- 为什么用 base64 / Why base64: 本仓库通过只接受文本的 GitHub API 上传，图片和音频以 base64 分片存放；首次打开时页面下载并解包到浏览器缓存，Service Worker 再按原路径提供这些素材，之后再次打开会直接读缓存。The repo was uploaded through a text-only GitHub API, so images/audio ship as base64 parts. On first visit the loader downloads and unpacks them into Cache Storage, and a service worker serves them at their original paths, so later visits load from cache.
 
 ## 署名 / Credits
 Code: Three.js r170, esbuild. Art, music, SFX and voice: AI-generated with OpenLux image / audio / voice models (prompts logged in the process report). Satire / parody; all names belong to their respective owners.
