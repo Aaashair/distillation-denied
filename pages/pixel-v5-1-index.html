@@ -31,7 +31,7 @@
   </noscript>
   <script>
   (async () => {
-    const BUILD = 'pixel-v5-1-cb050f5-ea7cc902', PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
+    const BUILD = 'pixel-v5-1-cb050f5-ea7cc902-r2', PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
     window.__BUILD_VERSION = BUILD;
     const fill = document.getElementById('dd-fill');
     const msg = document.getElementById('dd-msg');
@@ -42,7 +42,7 @@
         throw new Error('This browser lacks Service Worker / DecompressionStream support');
       }
       const base = new URL('./', location.href).href;
-      const reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902.js', { scope: './', updateViaCache: 'none' });
+      let reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902-r2.js', { scope: './', updateViaCache: 'none' });
       await navigator.serviceWorker.ready;
       // Do not boot until the VERSION handshake confirms the new controller.
       const versionOf = () => new Promise(resolve => {
@@ -56,6 +56,14 @@
       let correct = false;
       for (let i = 0; i < 60; i++) {
         if (await versionOf() === BUILD) { correct = true; break; }
+        if (i % 5 === 0) {
+          reg.active?.postMessage({type:'CLAIM', version:BUILD});
+          reg.waiting?.postMessage({type:'SKIP_WAITING', version:BUILD});
+        }
+        if (i === 10 || i === 25) {
+          reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902-r2.js', {scope:'./', updateViaCache:'none'});
+          await reg.update();
+        }
         await new Promise(r => setTimeout(r, 200));
       }
       if (!correct) throw new Error('New service worker did not take control; please refresh');
