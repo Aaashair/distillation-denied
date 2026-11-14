@@ -1,37 +1,30 @@
-# 蒸馏圣堂 · DISTILLATION DENIED — Pixel v3
+# 蒸馏禁令 · DISTILLATION DENIED — Pixel v4
 
 ▶ **在线游玩 / Play:** https://aaashair.github.io/distillation-denied/
 
-AMCC5160 Assignment 3. Canvas2D pixel-art boss room, 640×360 internal buffer. Source `2d6c816` (includes `46ad891` and `394d37d`), build `pixel-v3-2d6c816-cdf9afdf`.
+AMCC5160 A3. Canvas2D 640×360 pixel-art boss fight. Build `pixel-v4-cc1bf80-c0114dc7`, local source `cc1bf80` (integration `1728495`).
 
-## 本轮更新 / This release
-- Persistent **中文 / English** title selector. Only selected-language text is shown. Voices remain Chinese; no English dub.
-- Primary damage +40%; damaging skills +50%. GLM skill: **开源之盾 / Open-Source Aegis**.
-- Unlimited GPU heals with independent cooldowns: **RTX 5090 5s, H200 10s, B200 20s**. No quantity limit; interruptions consume cooldown. Pause freezes cooldowns; retry resets them.
-- Projectile glyphs: whales 192px, dark moons 440px, Z bolts 96px.
-- Persistent Haiku Dario hologram even between taunts.
-- Ending A engine rescue/carry and theater now use mature white-dragon Astra compositions. Carry beam reduced so her face stays visible. Existing art recomposed locally, not new generated video.
+## 新版界面与CG / Interface and CG update
+- Larger labeled HP/skill/GPU readiness HUD; independent GPU cards below the floor; first-entry controls briefing waits for **Start Fight**, H/? recalls help. Validated at 1280×720 and 960×600; small mobile viewports not validated.
+- Dario at the top doorway; controlled-player foot ring: DeepSeek blue, Kimi purple, GLM white/dark outline. Arena **548 Market Street**.
+- Direct full-screen illustrated phase/ban/ending CG replaces old in-arena story stingers. Full-body Fable establishing and takes-Opus panels; mature white-dragon Astra throughout rescue/ending. Existing artwork reused/composed, not new generated video.
+- Persistent 中文/English choice, selected-language text only. Fictional/parodic Claude IP-ban/KYC taunts; English mode mutes Chinese **Claude combat VO**. Other Chinese voices retained; no English dub.
+- Combat unchanged: primary+40% / damaging skill+50%, unlimited GPU heals with independent RTX5090 5s / H200 10s / B200 20s cooldowns. Whales192px / moons440px / Z96px. Hardcore; no checkpoints.
 
 ## 操作 / Controls
-WASD move · arrows or held LMB aim/fire · Space roll · Shift/E/RMB skill · 1/2/3 choose GPU · **Q heal** · Esc pause · **P debug panel** · Enter confirm/advance.
+WASD move · arrows/held LMB aim/fire · Space roll · Shift/E/RMB skill · 1/2/3 GPU · **Q heal** · Esc pause · **H/? controls help** · **P debug panel** · Enter confirm/advance. Graders: P jumps phases or triggers either ending.
 
-Hardcore: no checkpoint/story mode. Claude: Haiku → Sonnet → Opus 5.5. P1/P2 death = account banned/retry; P3 death = Ending A; personally push Opus to 25% = Ending B. Graders can use **P** to jump phases/trigger endings.
+## Release / 发布
+`gh-pages` serves immutable `releases/pixel-v4-cc1bf80-c0114dc7/` JS/CSS/media payload. Unique service worker filename, explicit VERSION handshake, archive SHA-256 and exact build-specific cache prevent stale/mixed assets. First visit ≈**59.4 MB (56.60 MiB)** with base64 overhead; reload uses cache.
 
-## Deployment / 发布
-`gh-pages` serves the site. Immutable `releases/pixel-v3-2d6c816-cdf9afdf/` runtime/CSS/payload, unique service worker filename, version handshake, SHA-256 archive verification and exact build-specific cache prevent mixed old/new assets.
+Existing tabs: **refresh**, or **Ctrl+Shift+R** if old HTML/loading persists. No custom Actions workflows; sequential GitHub connector publication. Previous v3 in `v3-pages-archive`; v1/v2 histories/archive branches and local tags retained. No force pushes/branch deletion.
 
-First download approximately **52.9 MB (50.45 MiB)** including base64 overhead. Reload reuses browser cache. Existing tabs: **refresh**; if old HTML remains, **Ctrl+Shift+R**. Modern desktop Chrome/Edge recommended.
-
-No custom Actions workflow. Sequential authorized GitHub connector commits only. v1 history/local `v1-3d` tag and remote `v1-pages-archive` preserved; previous v2 in `v2-pages-archive`. No branches deleted/force-pushed.
-
-## Source / 源码
-Current text-uploaded source snapshot: `releases/pixel-v3-2d6c816-cdf9afdf/source-2d6c816.tgz.b64` (65 source/test/doc files; no runtime/raw assets, credentials or logs).
-
+## Current source / 当前源码
+`releases/pixel-v4-cc1bf80-c0114dc7/source-cc1bf80.tgz.b64` contains80 current source/test/doc/tool files, no secrets, logs or raw assets:
 ```sh
-mkdir pixel-v3-source
-base64 --decode releases/pixel-v3-2d6c816-cdf9afdf/source-2d6c816.tgz.b64 | tar -xz -C pixel-v3-source
+mkdir pixel-v4-source
+base64 --decode releases/pixel-v4-cc1bf80-c0114dc7/source-cc1bf80.tgz.b64 | tar -xz -C pixel-v4-source
 ```
+Old main `source/` and `payload/` folders are historical v1, not current. Runtime assets reside on gh-pages in this release directory. Local prepublication integrated suite247/247; deployment smoke uses explicitly labeled debug setup for CG/ring checks. Automated tests do not replace the assignment's two human playtesters.
 
-Old main `source/` and `payload/` directories are v1 archives, not the current release. Runtime assets are on the serving branch under the release directory.
-
-Local prepublication follow-up: 91/91 PASS, including real enemy-damage death→Ending A at normal damage. Debug-assisted deployment smoke checks are not human playtests; the assignment still requires two people. Credits: existing OpenLux AI art/Chinese voice/music/SFX, local Cursor CLI development. Satire/parody; names belong to their owners.
+Credits: reused OpenLux AI art/music/Chinese voices/SFX, local Cursor CLI development; no media generation during this deployment. Satire/parody; names belong to their owners.
