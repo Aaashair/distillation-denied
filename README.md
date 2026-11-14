@@ -1,30 +1,31 @@
-# 蒸馏禁令 · DISTILLATION DENIED — Pixel v4
+# 蒸馏禁令 · DISTILLATION DENIED — v5.1
 
 ▶ **在线游玩 / Play:** https://aaashair.github.io/distillation-denied/
 
-AMCC5160 A3. Canvas2D 640×360 pixel-art boss fight. Build `pixel-v4-cc1bf80-c0114dc7`, local source `cc1bf80` (integration `1728495`).
+AMCC5160 Assignment3. Current source `cb050f5`; build `pixel-v5-1-cb050f5-ea7cc902`. Canvas2D pixel-art boss fight with illustrated ending CG. 中文/English choice persists; selected-language text only.
 
-## 新版界面与CG / Interface and CG update
-- Larger labeled HP/skill/GPU readiness HUD; independent GPU cards below the floor; first-entry controls briefing waits for **Start Fight**, H/? recalls help. Validated at 1280×720 and 960×600; small mobile viewports not validated.
-- Dario at the top doorway; controlled-player foot ring: DeepSeek blue, Kimi purple, GLM white/dark outline. Arena **548 Market Street**.
-- Direct full-screen illustrated phase/ban/ending CG replaces old in-arena story stingers. Full-body Fable establishing and takes-Opus panels; mature white-dragon Astra throughout rescue/ending. Existing artwork reused/composed, not new generated video.
-- Persistent 中文/English choice, selected-language text only. Fictional/parodic Claude IP-ban/KYC taunts; English mode mutes Chinese **Claude combat VO**. Other Chinese voices retained; no English dub.
-- Combat unchanged: primary+40% / damaging skill+50%, unlimited GPU heals with independent RTX5090 5s / H200 10s / B200 20s cooldowns. Whales192px / moons440px / Z96px. Hardcore; no checkpoints.
+## V5 + V5.1 corrections
+- External left220px vertical HUD: labeled HP/skill/GPU, **Claude Combat / Claude战斗提示**, **Dario Comms / Dario全息通讯**, Controls and explicitly labeled Distillation progress. Readable14–16px DOM text, keyboard-scrollable lower controls, H full help. Viewports>=960×600 validated.
+- Corrected gameplay/trial-room projection and trial-room size; **试炼石碑 / Trial Stele**. No home “unwinnable” tagline. One arena location and one boss/phase header; visible unclipped HP strip.
+- Combat captions and ally bubbles clear on state exit and respect selected language. English suppresses Chinese Claude combat VO, not other characters' Chinese voices. No English dub.
+- Coherent single mature-white-dragon Astra CG per scene, separate full-size Sam phone CG; no contact sheets as runtime art. Fable full illustrated CG retained.
+- Every CG slide hard-cuts prior BGM/VO/SFX/WebAudio and cancels queued stale callbacks with ownership tokens. Haiku→Sonnet→Opus in-engine transformations restored; endings remain direct CG.
+- Prior primary+40% / damaging-skill+50% buffs, whale/moon/Z glyphs, player rings, unlimited independent GPU5/10/20s cooldowns, hardcore retry all retained.
 
-## 操作 / Controls
-WASD move · arrows/held LMB aim/fire · Space roll · Shift/E/RMB skill · 1/2/3 GPU · **Q heal** · Esc pause · **H/? controls help** · **P debug panel** · Enter confirm/advance. Graders: P jumps phases or triggers either ending.
+## Controls / 操作
+WASD move · arrows/heldLMB aim/fire · Space roll · Shift/E/RMB skill ·1/2/3 GPU · **Q heal** · Esc pause · **H/? help** · **P debug panel** · Enter confirm/advance. Trial Stele precedes combat. Graders can use P to jump phases/trigger endings.
 
-## Release / 发布
-`gh-pages` serves immutable `releases/pixel-v4-cc1bf80-c0114dc7/` JS/CSS/media payload. Unique service worker filename, explicit VERSION handshake, archive SHA-256 and exact build-specific cache prevent stale/mixed assets. First visit ≈**59.4 MB (56.60 MiB)** with base64 overhead; reload uses cache.
+## Deployment / 发布
+Serving branch `gh-pages`, immutable `releases/pixel-v5-1-cb050f5-ea7cc902/` media archive/JS/CSS, unique service worker, explicit VERSION handshake, archive SHA-256, exact per-build cache. First visit ≈**65.5MB (62.51MiB)** incl base64 overhead; reload uses browser cache.
 
-Existing tabs: **refresh**, or **Ctrl+Shift+R** if old HTML/loading persists. No custom Actions workflows; sequential GitHub connector publication. Previous v3 in `v3-pages-archive`; v1/v2 histories/archive branches and local tags retained. No force pushes/branch deletion.
+Existing tabs: **Ctrl+Shift+R**, or reopen with a fresh query if stale HTML persists. No cache clearing required. Previous v4 preserved in `v4-pages-archive`, older archives/history/tags retained. No branch deletion/force push/custom Actions workflow. Authorized sequential connector publication, local Cursor CLI development.
 
 ## Current source / 当前源码
-`releases/pixel-v4-cc1bf80-c0114dc7/source-cc1bf80.tgz.b64` contains80 current source/test/doc/tool files, no secrets, logs or raw assets:
+91-file current source/test/docs/tool snapshot (no raw media, logs, .env or secrets): `releases/pixel-v5-1-cb050f5-ea7cc902/source-cb050f5.tgz.b64`.
 ```sh
-mkdir pixel-v4-source
-base64 --decode releases/pixel-v4-cc1bf80-c0114dc7/source-cc1bf80.tgz.b64 | tar -xz -C pixel-v4-source
+mkdir pixel-v5-1-source
+base64 --decode releases/pixel-v5-1-cb050f5-ea7cc902/source-cb050f5.tgz.b64 | tar -xz -C pixel-v5-1-source
 ```
-Old main `source/` and `payload/` folders are historical v1, not current. Runtime assets reside on gh-pages in this release directory. Local prepublication integrated suite247/247; deployment smoke uses explicitly labeled debug setup for CG/ring checks. Automated tests do not replace the assignment's two human playtesters.
+Old main `source/`/`payload/` are historical v1 archives, not current. Runtime assets reside on gh-pages in this release directory.
 
-Credits: reused OpenLux AI art/music/Chinese voices/SFX, local Cursor CLI development; no media generation during this deployment. Satire/parody; names belong to their owners.
+Prepublication tests: V5 439/439; targeted V5.1 361/361. Deployment smoke uses labeled debug phase/HP/death setup, not normal-difficulty human playtesting. Assignment still requires two human testers. Credits: existing OpenLux AI art/Chinese voices/music/SFX, locally reused/composed; no media generation or spend during this release. Satire/parody; names belong to owners.

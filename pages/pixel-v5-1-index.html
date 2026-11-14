@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DISTILLATION DENIED</title>
+  <link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/ui.css" />
+  <link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/theater.css" />
+  <style>
+    #dd-loader{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      background:#07080c;color:#e8e2d0;font-family:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;text-align:center;padding:24px}
+    #dd-loader h1{font-weight:600;letter-spacing:.12em;margin:0 0 6px;font-size:28px}
+    #dd-loader .sub{opacity:.6;font-size:13px;letter-spacing:.2em;margin-bottom:28px}
+    #dd-bar{width:min(420px,80vw);height:6px;background:#1c1f28;border-radius:3px;overflow:hidden}
+    #dd-fill{height:100%;width:0;background:linear-gradient(90deg,#c9a24a,#f2d68a);transition:width .2s}
+    #dd-msg{margin-top:12px;font-size:13px;opacity:.75;min-height:1.4em}
+  </style>
+<link rel="stylesheet" href="releases/pixel-v5-1-cb050f5-ea7cc902/css/claude.css" />
+</head>
+<body>
+  <canvas id="view"></canvas>
+  <div id="ui-root"></div>
+  <div id="dd-loader">
+    <h1>蒸馏禁令</h1>
+    <div class="sub">DISTILLATION DENIED</div>
+    <div id="dd-bar"><div id="dd-fill"></div></div>
+    <div id="dd-msg">正在加载素材 / Loading assets…</div>
+  </div>
+  <noscript>
+    <p>需要启用 JavaScript。 / JavaScript is required.</p>
+  </noscript>
+  <script>
+  (async () => {
+    const BUILD = 'pixel-v5-1-cb050f5-ea7cc902', PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
+    window.__BUILD_VERSION = BUILD;
+    const fill = document.getElementById('dd-fill');
+    const msg = document.getElementById('dd-msg');
+    const setP = (f, t) => { fill.style.width = (Math.min(1, f) * 100).toFixed(1) + '%'; if (t) msg.textContent = t; };
+    const fail = (e) => { console.error(e); msg.textContent = '加载失败，请刷新或换用桌面版 Chrome / Load failed, please refresh or use desktop Chrome. (' + (e && e.message || e) + ')'; };
+    try {
+      if (!('serviceWorker' in navigator) || !('caches' in window) || !('DecompressionStream' in window)) {
+        throw new Error('This browser lacks Service Worker / DecompressionStream support');
+      }
+      const base = new URL('./', location.href).href;
+      const reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902.js', { scope: './', updateViaCache: 'none' });
+      await navigator.serviceWorker.ready;
+      // Do not boot until the VERSION handshake confirms the new controller.
+      const versionOf = () => new Promise(resolve => {
+        const ctl = navigator.serviceWorker.controller;
+        if (!ctl) return resolve(null);
+        const ch = new MessageChannel();
+        const timer = setTimeout(() => resolve(null), 700);
+        ch.port1.onmessage = e => { clearTimeout(timer); resolve(e.data.version); };
+        ctl.postMessage({type:'VERSION'}, [ch.port2]);
+      });
+      let correct = false;
+      for (let i = 0; i < 60; i++) {
+        if (await versionOf() === BUILD) { correct = true; break; }
+        await new Promise(r => setTimeout(r, 200));
+      }
+      if (!correct) throw new Error('New service worker did not take control; please refresh');
+      const sha = SHA;
+      const cacheName = 'dd-assets-' + BUILD;
+      const cache = await caches.open(cacheName);
+      if (!(await cache.match(base + '__complete__'))) {
+        // 1) download base64 parts with byte progress
+        let got = 0;
+        const texts = new Array(PARTS);
+        const names = Array.from({ length: PARTS }, (_, i) => PREFIX + 'part_' + String(i).padStart(2, '0') + '.b64');
+        let next = 0;
+        const worker = async () => {
+          while (next < PARTS) {
+            const i = next++;
+            const r = await fetch(names[i] + '?v=' + sha.slice(0, 8));
+            if (!r.ok) throw new Error(names[i] + ' HTTP ' + r.status);
+            const rd = r.body.getReader(); const chunks = [];
+            for (;;) { const { done, value } = await rd.read(); if (done) break; chunks.push(value); got += value.length;
+              setP(got / TOTAL * 0.85, '正在加载素材 / Loading assets… ' + (got / 1048576).toFixed(1) + ' / ' + (TOTAL / 1048576).toFixed(1) + ' MB'); }
+            texts[i] = new TextDecoder().decode(await new Blob(chunks).arrayBuffer());
+          }
+        };
+        await Promise.all([worker(), worker(), worker(), worker()]);
+        // 2) base64 -> verify SHA-256 -> gzip -> tar
+        setP(0.87, '正在解包 / Unpacking…');
+        let carry = '', decoded = [];
+        for (let i = 0; i < PARTS; i++) {
+          let text = carry + texts[i].replace(/\s+/g, ''); texts[i] = null;
+          const cut = text.length - text.length % 4; carry = text.slice(cut); text = text.slice(0, cut);
+          const bin = atob(text), bytes = new Uint8Array(bin.length);
+          for (let j = 0; j < bin.length; j++) bytes[j] = bin.charCodeAt(j);
+          decoded.push(bytes);
+        }
+        if (carry) throw new Error('payload length mismatch');
+        const archive = await new Blob(decoded).arrayBuffer(); decoded = null;
+        const actual = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', archive)), b => b.toString(16).padStart(2,'0')).join('');
+        if (actual !== SHA) throw new Error('Payload integrity check failed');
+        const unpacked = await new Response(new Blob([archive]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+        const tar = new Uint8Array(unpacked);
+        // SHA-256 verified archive; parse ustar
+        setP(0.93, '正在缓存 / Caching…');
+        const td = new TextDecoder();
+        const str = (a, b) => { let e = a; while (e < b && tar[e]) e++; return td.decode(tar.subarray(a, e)); };
+        const mime = { webp: 'image/webp', mp3: 'audio/mpeg', png: 'image/png', jpg: 'image/jpeg', json: 'application/json', mp4: 'video/mp4' };
+        const puts = [];
+        for (let off = 0; off + 512 <= tar.length;) {
+          if (tar[off] === 0) break;
+          let name = str(off, off + 100);
+          const prefix = str(off + 345, off + 500);
+          if (prefix) name = prefix + '/' + name;
+          const size = parseInt(str(off + 124, off + 136).trim() || '0', 8);
+          const type = String.fromCharCode(tar[off + 156] || 48);
+          const dataStart = off + 512;
+          name = name.replace(/^\.\//, '');
+          if ((type === '0') && name.startsWith('assets/')) {
+            const ext = name.split('.').pop().toLowerCase();
+            const body = new Blob([tar.slice(dataStart, dataStart + size)], { type: mime[ext] || 'application/octet-stream' });
+            puts.push(cache.put(base + name, new Response(body, { headers: { 'Content-Type': mime[ext] || 'application/octet-stream', 'Content-Length': String(size) } })));
+          }
+          off = dataStart + Math.ceil(size / 512) * 512;
+        }
+        await Promise.all(puts);
+        await cache.put(base + '__complete__', new Response(String(puts.length)));
+      }
+      setP(1, '启动中 / Starting…');
+      const s = document.createElement('script');
+      s.src = PREFIX + 'game.js';
+      s.onload = () => { const l = document.getElementById('dd-loader'); if (l) l.remove(); };
+      s.onerror = () => fail(new Error('game.js failed to load'));
+      document.body.appendChild(s);
+    } catch (e) { fail(e); }
+  })();
+  </script>
+</body>
+</html>
