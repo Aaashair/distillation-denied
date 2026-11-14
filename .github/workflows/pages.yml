@@ -1,0 +1,28 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble and verify build
+        run: |
+          cat payload/part_*.b64 | base64 -d > site.tgz
+          echo "$(cat payload/site.tgz.sha256)  site.tgz" | sha256sum -c -
+          mkdir site && tar -xzf site.tgz -C site
+          touch site/.nojekyll
+          ls -la site
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          force_orphan: true
