@@ -22,7 +22,7 @@ WASD move · arrows/heldLMB aim/fire · Space roll · Shift/E/RMB skill ·1/2/3 
 ## Deployment / 发布
 Serving branch `gh-pages`; build `pixel-v5-2-8c73474-ea7cc902`, source `8c73474`. Versioned runtime/SW with explicit VERSION/CLAIM handshake and the prior controller-takeover race fix retained. All339 runtime media files and all3CSS are byte-identical to V5.1 and reused at `releases/pixel-v5-1-cb050f5-ea7cc902/`; archive SHA-256 `ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113`.
 
-Fresh first download ≈**65.53MB (62.49MiB)** including base64 overhead, JS/loader/CSS/SW. Existing complete V5.1 caches migrate locally into content-addressed `dd-media-ea7cc90228ca3fbd` with **zero media payload downloads**; only new JS(~642KB), loader and SW need fetching. Reload reuses cached media. Old caches remain intact; browser storage eviction can require downloading media again.
+Fresh first download ≈**65.55MB (62.52MiB)** including base64 overhead, JS/loader/CSS/SW. Existing complete V5.1 caches migrate locally into content-addressed `dd-media-ea7cc90228ca3fbd` with **zero media payload downloads**; only new JS(~642KB), loader and SW need fetching. Reload reuses cached media. Old caches remain intact; browser storage eviction can require downloading media again.
 
 Existing tabs: refresh; if stale HTML persists, **Ctrl+Shift+R** or open https://aaashair.github.io/distillation-denied/?release=pixel-v5-2-8c73474-ea7cc902 . No cache clearing required. Previous V5.1 preserved in `v5-1-pages-archive`, all earlier archives/history/tags retained. No branch deletion, force push or custom Actions workflow. Authorized sequential connector publication, local Cursor CLI development.
 
