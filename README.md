@@ -2,7 +2,7 @@
 
 ▶ **在线游玩 / Play:** https://aaashair.github.io/distillation-denied/
 
-AMCC5160 Assignment3. Current source `cb050f5`; build `pixel-v5-1-cb050f5-ea7cc902`. Canvas2D pixel-art boss fight with illustrated ending CG. 中文/English choice persists; selected-language text only.
+AMCC5160 Assignment3. Current source `cb050f5`; build `pixel-v5-1-cb050f5-ea7cc902-r2`. Canvas2D pixel-art boss fight with illustrated ending CG. 中文/English choice persists; selected-language text only.
 
 ## V5 + V5.1 corrections
 - External left220px vertical HUD: labeled HP/skill/GPU, **Claude Combat / Claude战斗提示**, **Dario Comms / Dario全息通讯**, Controls and explicitly labeled Distillation progress. Readable14–16px DOM text, keyboard-scrollable lower controls, H full help. Viewports>=960×600 validated.
