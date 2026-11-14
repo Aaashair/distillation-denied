@@ -31,7 +31,7 @@
   </noscript>
   <script>
   (async () => {
-    const BUILD = 'pixel-v5-1-cb050f5-ea7cc902-r2', PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
+    const BUILD = 'pixel-v5-2-8c73474-ea7cc902', PREFIX = 'releases/pixel-v5-2-8c73474-ea7cc902/', MEDIA_PREFIX = 'releases/pixel-v5-1-cb050f5-ea7cc902/', SHA = 'ea7cc90228ca3fbdd7a2c68c3488e3f882c9fde2593ea005a76662d95a6ea113', PARTS = 17, TOTAL = 64861300;
     window.__BUILD_VERSION = BUILD;
     const fill = document.getElementById('dd-fill');
     const msg = document.getElementById('dd-msg');
@@ -42,7 +42,7 @@
         throw new Error('This browser lacks Service Worker / DecompressionStream support');
       }
       const base = new URL('./', location.href).href;
-      let reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902-r2.js', { scope: './', updateViaCache: 'none' });
+      let reg = await navigator.serviceWorker.register('sw-pixel-v5-2-8c73474-ea7cc902.js', { scope: './', updateViaCache: 'none' });
       await navigator.serviceWorker.ready;
       // Do not boot until the VERSION handshake confirms the new controller.
       const versionOf = () => new Promise(resolve => {
@@ -61,20 +61,38 @@
           reg.waiting?.postMessage({type:'SKIP_WAITING', version:BUILD});
         }
         if (i === 10 || i === 25) {
-          reg = await navigator.serviceWorker.register('sw-pixel-v5-1-cb050f5-ea7cc902-r2.js', {scope:'./', updateViaCache:'none'});
+          reg = await navigator.serviceWorker.register('sw-pixel-v5-2-8c73474-ea7cc902.js', {scope:'./', updateViaCache:'none'});
           await reg.update();
         }
         await new Promise(r => setTimeout(r, 200));
       }
       if (!correct) throw new Error('New service worker did not take control; please refresh');
       const sha = SHA;
-      const cacheName = 'dd-assets-' + BUILD;
+      const cacheName = 'dd-media-ea7cc90228ca3fbd';
       const cache = await caches.open(cacheName);
+      // Exact trusted predecessor caches contain this byte-identical SHA-verified media set.
+      // Copy responses locally once; never redownload code-only update assets.
+      if (!(await cache.match(base + '__complete__'))) {
+        const existing = await caches.keys();
+        for (const previous of ['dd-assets-pixel-v5-1-cb050f5-ea7cc902-r2', 'dd-assets-pixel-v5-1-cb050f5-ea7cc902']) {
+          if (!existing.includes(previous)) continue;
+          const source = await caches.open(previous);
+          const complete = await source.match(base + '__complete__');
+          if (!complete) continue;
+          const keys = await source.keys();
+          for (const req of keys) {
+            if (new URL(req.url).pathname.includes('/assets/')) await cache.put(req, await source.match(req));
+          }
+          await cache.put(base + '__complete__', complete);
+          window.__MEDIA_CACHE_MIGRATED_FROM = previous;
+          break;
+        }
+      }
       if (!(await cache.match(base + '__complete__'))) {
         // 1) download base64 parts with byte progress
         let got = 0;
         const texts = new Array(PARTS);
-        const names = Array.from({ length: PARTS }, (_, i) => PREFIX + 'part_' + String(i).padStart(2, '0') + '.b64');
+        const names = Array.from({ length: PARTS }, (_, i) => MEDIA_PREFIX + 'part_' + String(i).padStart(2, '0') + '.b64');
         let next = 0;
         const worker = async () => {
           while (next < PARTS) {
