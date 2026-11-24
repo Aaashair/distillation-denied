@@ -2,7 +2,7 @@
 //   node tests/playtest_bot.mjs [baseUrl]
 // Serves nothing itself — point it at `npx serve -l 8106 .`.
 
-import { chromium } from '/workspace/amcc5160-game/e2e/node_modules/playwright/index.mjs';
+import { chromium } from 'playwright';
 import fs from 'fs';
 import path from 'path';
 

@@ -1,0 +1,50 @@
+/* OWNER: W4 — Claude combat captions (not ui.css) */
+#claude-combat-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  transform: translateX(-50%);
+  max-width: min(520px, 88vw);
+  padding: 10px 14px;
+  background: rgba(17, 14, 32, 0.92);
+  color: #f4f1ea;
+  border: 2px solid #e7c27a;
+  border-radius: 4px;
+  font: 700 15px/1.4 "Noto Sans SC", "Noto Sans", system-ui, sans-serif;
+  text-align: center;
+  pointer-events: none;
+  z-index: 7;
+  text-shadow: 0 1px 0 #000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+}
+
+#claude-combat-caption.is-visible {
+  opacity: 1;
+}
+
+#claude-attack-toast {
+  position: absolute;
+  left: 50%;
+  top: 52px;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  background: rgba(27, 21, 48, 0.9);
+  color: #f4f1ea;
+  border: 2px solid #c9a85c;
+  font: 700 13px/1.35 "Noto Sans SC", "Noto Sans", sans-serif;
+  pointer-events: none;
+  z-index: 6;
+  max-width: 92%;
+  text-align: center;
+}
+
+#claude-attack-toast[hidden] {
+  display: none;
+}
+/* Integrated HUD uses top/bottom safe bands; keep Claude in the right gutter. */
+#claude-combat-caption, #claude-attack-toast { position:fixed; left:auto; right:12px; transform:none; width:220px; max-width:220px; font-size:15px; line-height:1.35; }
+#claude-attack-toast { top:100px; bottom:auto; }
+#claude-combat-caption { top:176px; bottom:auto; }
+@media (max-width:900px) { #claude-combat-caption, #claude-attack-toast { width:160px; max-width:160px; font-size:14px; } }

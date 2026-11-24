@@ -10,7 +10,7 @@
 - Existing sidebar, GPU cooldowns, damage/ranges/projectiles, story, rings and Dario remain unchanged.
 
 ## Implementation / process
-Local Cursor CLI composer-2.5-fast worker branch `v5_2-ready`, commit `ab61225`, session42d596b1-c94c-4916-ae3c-1548079087d5. Prompt `/workspace/amcc5160-game/prompts/v5_2/ready_cue.md`; log `/workspace/amcc5160-game/logs/v5_2_ready.jsonl`.
+Local Cursor CLI composer-2.5-fast worker branch `v5_2-ready`, commit `ab61225`, session42d596b1-c94c-4916-ae3c-1548079087d5. Prompt `prompts/v5_2/ready_cue.md`; log `logs/v5_2_ready.jsonl`.
 Integration review replaced a too-small internal-canvas label with the fixed-size CSS pill, corrected state event payload handling (to, not next) to actually preserve paused cue timers, canceled during charge/shield start, and rejected external cooldown-write edges. This keeps the requested feature local to the new module plus player init/reset/tick and main render hooks.
 A preliminary acceptance attempt used a100ms Kimi charge, too short to cast, and timed out; corrected to an actual500ms charge rather than pretending a fake cooldown was gameplay. Final tests below complete, with actual cooldowns and images reviewed.
 
@@ -24,7 +24,7 @@ A preliminary acceptance attempt used a100ms Kimi charge, too short to cast, and
 Assists: debug startFight/god, player+ally damage0 for safe lifecycle tests, timeScale8 until final0.65s then1 for natural moving-player completion. Real Shift skill activation/release and D movement; no cooldown reduction for genuine-completion assertions. Direct state changes/forced death only test cleanup. Existing ending smoke labels its boss-damage×50 natural-A setup. Bots do not replace required human testers.
 
 ## Visually reviewed evidence
-`/workspace/amcc5160-game/screens/v5_2/final/`
+`screens/v5_2/final/`
 - `ready_1024x615_deepseek_en.png` — blue Skill Ready follows blue-ring player.
 - `ready_1280x720_deepseek_en.png` — same readable CSS size at2× room scale.
 - `ready_1024x615_glm_zh.png` — white 技能就绪.

@@ -1,0 +1,23 @@
+# Dependencies and local builds
+node_modules/
+dist/
+dist-standalone/
+
+# Media unpacked from the gh-pages release. Large, and not part of the source snapshot.
+game/assets/
+
+# Test screenshots and Playwright output
+test-output/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# Secrets and editor junk
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
