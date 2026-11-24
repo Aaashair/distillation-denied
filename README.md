@@ -4,6 +4,19 @@ A short pixel-art boss fight that makes fun of the LLM industry. You play an ope
 
 [▶ Play in your browser](https://aaashair.github.io/distillation-denied/)
 
+## Submission files
+
+| File | What it is |
+| --- | --- |
+| [Report (PDF)](submission/Distillation_Denied_A3_Report.pdf) | The written A3 report |
+| [Report (slides)](submission/Distillation_Denied_A3_Report.pptx) | The same report as slides |
+| [Final presentation](submission/Distillation_Denied_Final_Presentation.pptx) | Slides for the final presentation |
+| [AI assets](submission/AI_ASSETS.md) ([Word](submission/AI_ASSETS.docx)) | List of the AI-made art, voices, and audio |
+| [Process appendix](submission/PROCESS_APPENDIX.md) ([Word](submission/PROCESS_APPENDIX.docx)) | Version timeline, tools, and playtest notes |
+| [Key prompts](submission/KEY_PROMPTS.md) ([Word](submission/KEY_PROMPTS.docx)) | Five prompts that were actually used, with what they produced |
+| [Contact sheet](submission/key_ai_assets_contact_sheet.jpg) | One labeled sheet of the main characters and an ending image |
+| [Screenshots](submission/screenshots/) | Before-and-after shots and one frame per version. Notes are in [SOURCES.md](submission/screenshots/SOURCES.md) |
+
 ## Controls
 
 | Key | What it does |
